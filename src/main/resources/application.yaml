@@ -1,0 +1,53 @@
+server:
+  port: 8080
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: user-svc-with-auth
+          uri: http://localhost:8083/
+          filters: JwtValidateFilter
+          predicates:
+            - Path=/api/users/**
+            - Header=Authorization
+        - id: user-svc
+          uri: http://localhost:8083/
+          predicates:
+            - Path=/api/users/**
+
+        - id: challenge-svc-with-auth
+          uri: http://localhost:8082
+          filters: JwtValidateFilter
+          predicates:
+            - path=/api/challenges/**
+            - Header=Authorization
+        - id: challenge-svc
+          uri: http://localhost:8082
+          predicates:
+            - path=/api/challenges/**
+
+        - id: problem-svc-with-auth
+          uri: http://localhost:8080/
+          filters: JwtValidateFilter
+          predicates:
+            - Path=/api/problems/**
+            - Header=Authorization
+        - id: problem-svc
+          uri: http://localhost:8080/
+          predicates:
+            - Path=/api/problems/**
+
+        - id: problem-catalog-svc-with-auth
+          uri: http://localhost:8081
+          filters: JwtValidateFilter
+          predicates:
+            - Path=/api/problem_catalogs/**
+            - Header=Authorization
+        - id: problem-catalog-svc
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/problem_catalogs/**
+jwt:
+  secret: ${JWT.SECRET}
+  issuer: ${JWT.ISSUER}
