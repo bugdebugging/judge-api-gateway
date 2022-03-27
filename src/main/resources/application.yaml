@@ -17,24 +17,24 @@ spring:
             - Path=/api/users/**
 
         - id: challenge-svc-with-auth
-          uri: http://localhost:8082
+          uri: http://localhost:8082/
           filters: JwtValidateFilter
           predicates:
-            - path=/api/challenges/**
+            - Path=/api/challenges/**
             - Header=Authorization
         - id: challenge-svc
-          uri: http://localhost:8082
+          uri: http://localhost:8082/
           predicates:
-            - path=/api/challenges/**
+            - Path=/api/challenges/**
 
         - id: problem-svc-with-auth
-          uri: http://localhost:8080/
+          uri: http://localhost:8084/
           filters: JwtValidateFilter
           predicates:
             - Path=/api/problems/**
             - Header=Authorization
         - id: problem-svc
-          uri: http://localhost:8080/
+          uri: http://localhost:8084/
           predicates:
             - Path=/api/problems/**
 
