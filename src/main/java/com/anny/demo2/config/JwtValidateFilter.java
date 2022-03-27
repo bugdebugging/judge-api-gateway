@@ -1,7 +1,6 @@
 package com.anny.demo2.config;
 
-import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -25,7 +24,7 @@ public class JwtValidateFilter extends AbstractGatewayFilterFactory {
                     exchange.getRequest().mutate()
                             .header("X-USERNAME", getToken(token))
                             .build();
-                } catch (JWTDecodeException | SignatureVerificationException e){
+                } catch (JWTVerificationException e) {
                 }
             }
             return chain.filter(exchange);
