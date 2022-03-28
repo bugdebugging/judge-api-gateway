@@ -6,46 +6,46 @@ spring:
     gateway:
       routes:
         - id: user-svc-with-auth
-          uri: http://localhost:8083/
+          uri: ${USER_SVC}
           filters: JwtValidateFilter
           predicates:
             - Path=/api/users/**
             - Header=Authorization
         - id: user-svc
-          uri: http://localhost:8083/
+          uri: ${USER_SVC}
           predicates:
             - Path=/api/users/**
 
         - id: challenge-svc-with-auth
-          uri: http://localhost:8082/
+          uri: ${CHALLENGE_SVC}
           filters: JwtValidateFilter
           predicates:
             - Path=/api/challenges/**
             - Header=Authorization
         - id: challenge-svc
-          uri: http://localhost:8082/
+          uri: ${CHALLENGE_SVC}
           predicates:
             - Path=/api/challenges/**
 
         - id: problem-svc-with-auth
-          uri: http://localhost:8084/
+          uri: ${PROBLEM_SVC}
           filters: JwtValidateFilter
           predicates:
             - Path=/api/problems/**
             - Header=Authorization
         - id: problem-svc
-          uri: http://localhost:8084/
+          uri: ${PROBLEM_SVC}
           predicates:
             - Path=/api/problems/**
 
         - id: problem-catalog-svc-with-auth
-          uri: http://localhost:8081
+          uri: ${CATALOG_SVC}
           filters: JwtValidateFilter
           predicates:
             - Path=/api/problem_catalogs/**
             - Header=Authorization
         - id: problem-catalog-svc
-          uri: http://localhost:8081
+          uri: ${CATALOG_SVC}
           predicates:
             - Path=/api/problem_catalogs/**
 jwt:
